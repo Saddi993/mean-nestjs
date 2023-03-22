@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "films-microservices"
+		},
+		{
+			"path": "gateway-service"
+		},
+		{
+			"path": "users-microservices"
+		}
+	],
+	"settings": {}
+}
