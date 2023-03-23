@@ -12,19 +12,6 @@ import { UserService } from './users.service';
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
-    // JwtModule.registerAsync({
-    //   inject: [
-    //     ConfigService
-    //   ],
-    //   useFactory: (config: ConfigService) => {
-    //     return {
-    //       secret: config.get<string>('JWT_SECRET'),
-    //       signOptions: {
-    //         expiresIn: config.get<string | number>('JWT_EXPIRES'),
-    //       },
-    //     };
-    //   },
-    // }),
     ConfigModule.forRoot(),
 
     JwtModule.register({
