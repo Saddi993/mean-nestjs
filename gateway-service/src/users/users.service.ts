@@ -9,6 +9,7 @@ export class UserService {
 
     createUser(createUserReq: User) {
         console.log(createUserReq);
-        this.userMicroServiceClient.emit('user_register', createUserReq)
+        this.userMicroServiceClient.emit('user_register', createUserReq);
+        return new Date().toString()
     }
 }
