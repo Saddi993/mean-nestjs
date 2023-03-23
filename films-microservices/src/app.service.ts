@@ -7,7 +7,7 @@ import { Film } from './schema/film.schema';
 @Injectable()
 export class AppService {
 
-  constructor (@InjectModel('Film') private readonly filmModel) {}
+  constructor (@InjectModel('Film') private readonly filmModel: Model<Film>) {}
   
   getHello(): string {
     return 'Hello World!';
