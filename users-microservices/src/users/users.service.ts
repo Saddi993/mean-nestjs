@@ -14,4 +14,11 @@ export class UserService {
         await this.userModel.create(createUserReq);
         
     }
+
+    async getUserByEmail(user: User) {
+        const data = await this.userModel.findOne({ email: user.email });
+
+        console.log(data);
+        return data;
+    }
 }
