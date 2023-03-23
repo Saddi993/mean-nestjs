@@ -8,8 +8,8 @@ export class UsersController {
     constructor(private readonly userService: UserService) { }
 
     @Post()
-    register(@Body() createUserReq: User) {
-        const userId = this.userService.createUser(createUserReq);
+    async register(@Body() createUserReq: User) {
+        const userId = await this.userService.createUser(createUserReq);
         return { userId };
     }
 }
