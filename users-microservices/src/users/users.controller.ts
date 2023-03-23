@@ -9,7 +9,7 @@ export class UsersController {
     constructor(private readonly userService: UserService) { }
 
     @EventPattern('user_register')
-    handleUserRegister(userData: User) {
+    handleUserRegister(userData: any) {
         this.userService.createUser(userData);
     }
 }
