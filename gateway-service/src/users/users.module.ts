@@ -8,6 +8,8 @@ import { PassportModule } from '@nestjs/passport';
 
 import { UsersController } from './users.controller';
 import { UserService } from './users.service';
+import { FilmsController } from 'src/films/films.controller';
+import { FilmService } from 'src/films/films.service';
 
 @Module({
   imports: [
@@ -25,10 +27,17 @@ import { UserService } from './users.service';
         options: {
           port: 3001
         }
+      },
+      {
+        name: 'FILM_MICROSERVICE',
+        transport: Transport.TCP,
+        options: {
+          port: 3002
+        }
       }
     ])
   ],
-  controllers: [UsersController],
-  providers: [UserService],
+  controllers: [UsersController, FilmsController],
+  providers: [UserService, FilmService],
 })
 export class UsersModule { }

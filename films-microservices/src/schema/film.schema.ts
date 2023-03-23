@@ -10,7 +10,8 @@ export const FilmSchema = new mongoose.Schema({
 export interface Film extends mongoose.Document {
   id: string;
   title: string;
-  director: string;
-  year: string;
+  password: string;
+  direcor: string;
+  year: number;
   actors: [];
 }
