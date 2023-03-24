@@ -19,8 +19,8 @@ export class UsersController {
         const hashedPassword = await bcrypt.hash(createUserReq.password, 12);
         createUserReq.password = hashedPassword;
 
-        const userId = await this.userService.createUser(createUserReq);
-        return { userId };
+        const data = await this.userService.createUser(createUserReq);
+        return { _id: data._id };
     }
 
     @Post('login')
@@ -29,9 +29,10 @@ export class UsersController {
         @Body('password') password: string,
         @Response({ passthrough: true }) response: any
     ) {
-
+        console.log('in login')
         const hashedPassword = await bcrypt.hash(password, 12);
-        const user: any = this.userService.getUserByEmail(email, hashedPassword);
+        const user: any = await this.userService.getUserByEmail(email, hashedPassword);
+        console.log(user);
 
         if (!user._id) {
             throw new BadRequestException('invalid credentials');

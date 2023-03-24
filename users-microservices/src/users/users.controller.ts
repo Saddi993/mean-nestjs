@@ -8,12 +8,12 @@ export class UsersController {
 
     constructor(private readonly userService: UserService) { }
 
-    @EventPattern('user_register')
-    handleUserRegister(userData: any) {
-        this.userService.createUser(userData);
+    @MessagePattern('user_register')
+    async handleUserRegister(userData: any) {
+        return await this.userService.createUser(userData);
     }
 
-    @MessagePattern({ cmd: 'get_user_by_email' })
+    @MessagePattern('get_user_by_email')
     async handleGetUserByEmail(userData: any) {
         console.log('MICRO SERVICE - get_user_by_email', userData);
         return await this.userService.getUserByEmail(userData);
