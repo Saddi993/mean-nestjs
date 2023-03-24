@@ -18,4 +18,9 @@ export class UsersController {
         console.log('MICRO SERVICE - get_user_by_email', userData);
         return await this.userService.getUserByEmail(userData);
     }
+
+    @MessagePattern({ cmd: 'get_films' })
+    async handlefilms(userData: any) {
+        console.log('MICRO SERVICE - get_films');
+    }
 }

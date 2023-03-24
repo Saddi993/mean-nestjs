@@ -13,8 +13,12 @@ export class AppService {
     return 'Hello World!';
   }
   
-  addFilm(data: any) {
+  async addFilm(data: any) {
     console.log(data);
-    this.filmModel.create(data);
+    await this.filmModel.create(data);
+  }
+
+  async getAllFilms() {
+    return await this.filmModel.find();
   }
 }

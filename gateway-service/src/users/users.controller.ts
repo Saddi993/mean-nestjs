@@ -31,12 +31,13 @@ export class UsersController {
     ) {
 
         const hashedPassword = await bcrypt.hash(password, 12);
-        const user: any = await this.userService.getUserByEmail(email, hashedPassword);
+        const user: any = this.userService.getUserByEmail(email, hashedPassword);
 
-        if (!user) {
+        if (!user._id) {
             throw new BadRequestException('invalid credentials');
         }
         console.log(user)
+        console.log(user._id , 'id');
         const jwt = await this.jwtService.sign({ id: user._id });
 
         response.cookie('jwt', jwt, { httpOnly: true });

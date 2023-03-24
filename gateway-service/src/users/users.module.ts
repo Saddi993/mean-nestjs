@@ -18,21 +18,23 @@ import { FilmService } from 'src/films/films.service';
 
     JwtModule.register({
       secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: process.env.JWT_EXPIRES}
+      signOptions: { expiresIn: process.env.JWT_EXPIRES }
     }),
     ClientsModule.register([
       {
         name: 'USER_MICROSERVICE',
-        transport: Transport.TCP,
+        transport: Transport.REDIS,
         options: {
-          port: 3001
+          host: 'localhost',
+          port: 6379,
         }
       },
       {
         name: 'FILM_MICROSERVICE',
-        transport: Transport.TCP,
+        transport: Transport.REDIS,
         options: {
-          port: 3002
+          host: 'localhost',
+          port: 6379,
         }
       }
     ])

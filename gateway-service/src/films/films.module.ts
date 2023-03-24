@@ -11,18 +11,7 @@ import { FilmService } from './films.service';
 import { UsersModule } from 'src/users/users.module';
 
 @Module({
-  imports: [
-    // UsersModule,
-    // ClientsModule.register([
-    //   {
-    //     name: 'FILM_MICROSERVICE',
-    //     transport: Transport.TCP,
-    //     options: {
-    //       port: 3001
-    //     }
-    //   }
-    // ])
-  ],
+  imports: [],
   controllers: [FilmsController],
   providers: [FilmService],
 })

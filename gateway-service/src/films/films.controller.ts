@@ -12,7 +12,7 @@ export class FilmsController {
         private readonly filmService: FilmService,
         private jwtService: JwtService
     ) { }
-
+    
     @Post()
     async addFilm(@Body() data: Film, @Request() request: any) {
 
@@ -33,19 +33,23 @@ export class FilmsController {
     @Get()
     async getFilms(@Request() request: any) {
 
-        const token = request.cookies['jwt'];
+        try {
+            const token = request.cookies['jwt'];
 
-        console.log(token, '-------------------------');
+            console.log(token, '-------------------------');
 
-        const films: any = await this.filmService.getAllFilms();
+            const films: any = await this.filmService.getAllFilms();
+            console.log(films);
+            if (!films) {
+                throw new NotFoundException('not found');
+            }
 
-        if (!films) {
-            throw new NotFoundException('not found');
+            return {
+                data: films
+            };
+
+        } catch (e) {
+            throw new UnauthorizedException;
         }
-        console.log(films)
-
-        return {
-            data: films
-        };
     }
 }
