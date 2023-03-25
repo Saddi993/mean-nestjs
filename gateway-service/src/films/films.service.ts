@@ -10,12 +10,20 @@ export class FilmService {
     ) { }
 
     addFilm(filmData: Film) {
-        return this.filmMicroServiceClient.emit('add_film', filmData);
+        return this.filmMicroServiceClient
+        .send<any>('add_film', filmData)
+        .toPromise();
     }
 
     getAllFilms() {
         return this.filmMicroServiceClient
         .send<any>('get_films', '')
+        .toPromise();
+    }
+
+    removeFilm(id) {
+        return this.filmMicroServiceClient
+        .send<any>('remove_films', { id })
         .toPromise();
     }
 }
