@@ -14,7 +14,10 @@ export class FilmRestService {
   }
 
   addMovie(data: any) {
-    console.log(data);
     return this.backend.post(`/films`, data);
+  }
+
+  removeMovie(id: any) {
+    return this.backend.delete(`/films/${id}`);
   }
 }

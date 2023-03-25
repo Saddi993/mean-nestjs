@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
 		this.form = this.fb.group({
 			title: ['', Validators.required],
 			director: ['', Validators.required],
-			year: ['', Validators.required]
+			year: [Validators.required]
 		});
 
 		this.getAllFilms();
@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit {
 		this.filmRestSrv.getFilms().subscribe(d => {
 			this.filmListTable = d.data;
 			this.dataSource.data = this.filmListTable;
+			console.log(this.filmListTable);
 		}, e => {
 			console.log(e);
 		});
@@ -75,17 +76,13 @@ export class HomeComponent implements OnInit {
 		}
 	}
 
-	// markComplete(id: any) {
-	// 	this.todoRestSrv.updateTask(id).subscribe(d => {
-	// 		const idx = findIndex(this.todoListTable, o => o.id === d.data.id);
-	// 		// console.log(idx);
-	// 		// console.log(this.todoListTable);
-	// 		this.todoListTable[idx]['status'] = 'DONE';
-	// 		this.dataSource.data = this.todoListTable;
-	// 	}, e => {
-	// 		console.log(e);
-	// 	});
-	// }
+	removeFilm(id: any) {
+		this.filmRestSrv.removeMovie(id).subscribe(d => {
+			this.getAllFilms()
+		}, e => {
+			console.log(e);
+		});
+	}
 
 	onSubmit() {
 
