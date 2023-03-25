@@ -12,17 +12,23 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @EventPattern('add_film')
+  @MessagePattern('add_film')
   async handleAddFilm(filmData: any) {
-    console.log('MICRO SERVICE - handleUserRegister');
-    await this.appService.addFilm(filmData);
+    console.log('MICRO SERVICE - handleAddFilm');
+    return await this.appService.addFilm(filmData);
   }
 
   @MessagePattern('get_films')
   async getFilms() {
     console.log('MICRO SERVICE - get_films');
     const data =  await this.appService.getAllFilms();
-    console.log(data);
+    return data;
+  }
+
+  @MessagePattern('remove_films')
+  async removeFilms(filmData: any) {
+    console.log('MICRO SERVICE - remove_films', filmData);
+    const data =  await this.appService.removeFilm(filmData.id);
     return data;
   }
 }
