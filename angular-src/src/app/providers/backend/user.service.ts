@@ -12,4 +12,8 @@ export class UserRestService {
   login(user: any) {
     return this.backend.post(`/users/login`, user);
   }
+
+  register(user: any) {
+    return this.backend.post(`/users`, user);
+  }
 }

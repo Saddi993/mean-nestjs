@@ -24,6 +24,9 @@ export class LoginComponent implements OnInit {
 	}
 
 	onSubmit() {
+
+		if (!this.form.valid) return;
+		
 		const email = this.form.get('email').value;
 		const password = this.form.get('password').value;
 
@@ -34,6 +37,11 @@ export class LoginComponent implements OnInit {
 				duration: 3000,
 			});
 		});
+	}
+
+	openRegister() {
+		console.log('openRegister');
+		this.router.navigate(['/register']);
 	}
 
 }
