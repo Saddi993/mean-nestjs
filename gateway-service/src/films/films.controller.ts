@@ -17,7 +17,7 @@ export class FilmsController {
     async addFilm(@Body() data: Film, @Request() request: any) {
 
         try {
-
+            console.log(request)
             const token = request.cookies['jwt'];
 
             console.log(token, '-------------------------');
@@ -36,7 +36,7 @@ export class FilmsController {
         try {
             const token = request.cookies['jwt'];
 
-            console.log(token, '-------------------------');
+            await this.jwtService.verify(token);
 
             const films: any = await this.filmService.getAllFilms();
             console.log(films);
