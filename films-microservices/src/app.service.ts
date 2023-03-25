@@ -21,6 +21,11 @@ export class AppService {
     return await this.filmModel.find();
   }
 
+  async updateByID(id, data) {
+    const result = await this.filmModel.findByIdAndUpdate({ _id: id }, { ...data });
+    console.log(result);
+  }
+
   async removeFilm(id) {
     await this.filmModel.deleteOne({ _id: id });
   }

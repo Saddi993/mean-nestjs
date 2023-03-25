@@ -25,6 +25,12 @@ export class AppController {
     return data;
   }
 
+  @MessagePattern('update_films')
+  async updateFilms(data: any) {
+    console.log('MICRO SERVICE - update_films');
+    return await this.appService.updateByID(data.id, data.updatedFilm);
+  }
+
   @MessagePattern('remove_films')
   async removeFilms(filmData: any) {
     console.log('MICRO SERVICE - remove_films', filmData);

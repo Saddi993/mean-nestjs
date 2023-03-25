@@ -11,19 +11,40 @@ export class FilmService {
 
     addFilm(filmData: Film) {
         return this.filmMicroServiceClient
-        .send<any>('add_film', filmData)
-        .toPromise();
+            .send<any>('add_film', filmData)
+            .toPromise();
     }
 
     getAllFilms() {
         return this.filmMicroServiceClient
-        .send<any>('get_films', '')
+            .send<any>('get_films', '')
+            .toPromise();
+    }
+
+    updateFilmById(id, data: any) {
+        const updatedFilm = { ...data };
+        if (data.title) {
+            updatedFilm.title = data.title;
+        }
+        if (data.director) {
+            updatedFilm.director = data.director;
+        }
+        if (data.year) {
+            updatedFilm.year = data.year;
+        }
+
+        if (data.actors) {
+            updatedFilm.actors = data.actors;
+        }
+
+        return this.filmMicroServiceClient
+        .send<any>('update_films', { id, updatedFilm })
         .toPromise();
     }
 
-    removeFilm(id) {
+    removeFilm(id: string) {
         return this.filmMicroServiceClient
-        .send<any>('remove_films', { id })
-        .toPromise();
+            .send<any>('remove_films', { id })
+            .toPromise();
     }
 }
