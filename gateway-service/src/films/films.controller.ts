@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, NotFoundException, Post, Req, Request, UnauthorizedException } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Post, Req, Request, UnauthorizedException } from "@nestjs/common";
 import { Film } from "./films.model";
 import { FilmService } from "./films.service";
 
@@ -17,10 +17,7 @@ export class FilmsController {
     async addFilm(@Body() data: Film, @Request() request: any) {
 
         try {
-            console.log(request)
             const token = request.cookies['jwt'];
-
-            console.log(token, '-------------------------');
             await this.jwtService.verify(token);
 
             await this.filmService.addFilm(data);
@@ -46,6 +43,26 @@ export class FilmsController {
 
             return {
                 data: films
+            };
+
+        } catch (e) {
+            throw new UnauthorizedException;
+        }
+    }
+
+    @Delete(':id')
+    async removeFilm(@Param('id') id: string, @Request() request: any) {
+
+        try {
+            const token = request.cookies['jwt'];
+            console.log(token);
+
+            await this.jwtService.verify(token);
+
+            await this.filmService.removeFilm(id);
+
+            return {
+                data: 'success'
             };
 
         } catch (e) {
