@@ -4,6 +4,7 @@ import { MatTableDataSource, MatSnackBar, MatChipInputEvent } from '@angular/mat
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { findIndex } from 'lodash';
 import { FilmRestService } from 'src/app/providers/backend/film.service';
+import { Router } from '@angular/router';
 
 export interface Actor {
 	name: string;
@@ -29,7 +30,7 @@ export class HomeComponent implements OnInit {
 
 	form: FormGroup;
 
-	constructor(private fb: FormBuilder, private filmRestSrv: FilmRestService, private _snackBar: MatSnackBar) { }
+	constructor(private fb: FormBuilder, private filmRestSrv: FilmRestService, private _snackBar: MatSnackBar, private router: Router) { }
 
 	ngOnInit() {
 
@@ -74,6 +75,10 @@ export class HomeComponent implements OnInit {
 		if (index >= 0) {
 			this.actors.splice(index, 1);
 		}
+	}
+
+	openEdit(id: any) {
+		this.router.navigate(['/edit', id]);
 	}
 
 	removeFilm(id: any) {

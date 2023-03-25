@@ -1,0 +1,44 @@
+<mat-card>
+    <mat-card-header>
+        <h6>Update Film,</h6>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="filmForm" (ngSubmit)="onSubmit()">
+            <mat-form-field class="full-width-input">
+                <input matInput type="text" placeholder="Title" formControlName="title" required>
+                <mat-error>
+                    Please provide title name
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width-input">
+                <input matInput type="text" placeholder="Director" formControlName="director" required>
+                <mat-error>
+                    Please provide director name
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width-input">
+                <input matInput type="number" placeholder="Year" formControlName="year" required>
+                <mat-error>
+                    Please provide year
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="example-chip-list">
+                <mat-chip-list #chipList aria-label="Write actor name seprated by comma">
+                    <mat-chip *ngFor="let actor of actors" [selectable]="selectable" [removable]="removable"
+                        (removed)="remove(actor)">
+                        {{actor.name}}
+                        <mat-icon matChipRemove *ngIf="removable">x</mat-icon>
+                    </mat-chip>
+                    <input placeholder="Add actors" [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="add($event)">
+                </mat-chip-list>
+            </mat-form-field>
+
+            <button mat-raised-button size="tiny" color="primary" class="float-right">Update</button>
+        </form>
+    </mat-card-content>
+</mat-card>

@@ -79,7 +79,7 @@
                 <th mat-header-cell *matHeaderCellDef> </th>
                 <td mat-cell *matCellDef="let element">
                     <button mat-raised-button size="tiny" color="accent" class="float-right"
-                        (click)="markComplete(element.id)">Edit</button>
+                        (click)="openEdit(element._id)">Edit</button>
                     <button mat-raised-button size="tiny" color="warn" class="float-right"
                         (click)="removeFilm(element._id)">Delete</button>
                 </td>

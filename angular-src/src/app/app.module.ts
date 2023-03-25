@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule, MatButtonModule, MatInputModule, MatSnackBarModule, MatTableModule, MatChipsModule, MatFormFieldModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './pages/register/register.component';
+import { EditComponent } from './pages/edit/edit.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { RegisterComponent } from './pages/register/register.component';
     AppComponent,
     LoginComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    EditComponent
   ],
   imports: [
     BrowserModule,

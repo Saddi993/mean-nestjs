@@ -30,6 +30,12 @@ export class BackEndService {
     return this.http.put<Response>(`${AppConfig.API_URL}${route}`, params, { headers, params: qParams, withCredentials: true });
   }
 
+  patch(route, params, queryParam = {}, moreHeaderOptions = {}) {
+    const headers = this.headers(moreHeaderOptions);
+    const qParams = this.QueryParamHelper(queryParam);
+    return this.http.patch<Response>(`${AppConfig.API_URL}${route}`, params, { headers, params: qParams, withCredentials: true });
+  }
+
   delete(route, queryParam = {}, moreHeaderOptions = {}) {
     const headers = this.headers(moreHeaderOptions);
     const qParams = this.QueryParamHelper(queryParam);
