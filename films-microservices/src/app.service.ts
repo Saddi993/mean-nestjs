@@ -26,6 +26,12 @@ export class AppService {
     console.log(result);
   }
 
+  async getFilmByID(id) {
+    const result = await this.filmModel.findById({ _id: id });
+    console.log(result);
+    return result;
+  }
+
   async removeFilm(id) {
     await this.filmModel.deleteOne({ _id: id });
   }

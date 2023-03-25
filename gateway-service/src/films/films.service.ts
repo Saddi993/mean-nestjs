@@ -42,6 +42,13 @@ export class FilmService {
         .toPromise();
     }
 
+    getFilmById(id) {
+
+        return this.filmMicroServiceClient
+        .send<any>('get_film_by_id', { id })
+        .toPromise();
+    }
+
     removeFilm(id: string) {
         return this.filmMicroServiceClient
             .send<any>('remove_films', { id })

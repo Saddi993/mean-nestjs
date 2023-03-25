@@ -76,6 +76,28 @@ export class FilmsController {
         }
     }
 
+    @Get(':id')
+    async getFilmByID(
+        @Param('id') id: string,
+        @Request() request: any
+    ) {
+
+        try {
+            const token = request.cookies['jwt'];
+
+            await this.jwtService.verify(token);
+
+            const film = await this.filmService.getFilmById(id);
+
+            return {
+                data: film
+            };
+
+        } catch (e) {
+            throw new UnauthorizedException;
+        }
+    }
+
     @Delete(':id')
     async removeFilm(@Param('id') id: string, @Request() request: any) {
 
