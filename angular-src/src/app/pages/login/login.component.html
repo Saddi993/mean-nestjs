@@ -6,9 +6,9 @@
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <h2>Log In</h2>
             <mat-form-field class="full-width-input">
-                <input matInput placeholder="Username" formControlName="username" required>
+                <input matInput placeholder="Email" formControlName="email" required>
                 <mat-error>
-                    Please provide a valid username
+                    Please provide a valid email
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width-input">

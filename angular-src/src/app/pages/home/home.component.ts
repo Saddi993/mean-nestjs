@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource, MatSnackBar } from '@angular/material';
-import { TodoRestService } from 'src/app/providers/backend/todo.service';
+import { UserRestService } from 'src/app/providers/backend/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { findIndex } from 'lodash';
 
@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
 
 	form: FormGroup;
 
-	constructor(private fb: FormBuilder, private todoRestSrv: TodoRestService, private _snackBar: MatSnackBar) { }
+	constructor(private fb: FormBuilder, private todoRestSrv: UserRestService, private _snackBar: MatSnackBar) { }
 
 	ngOnInit() {
 
