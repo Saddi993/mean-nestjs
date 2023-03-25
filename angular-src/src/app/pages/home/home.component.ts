@@ -3,6 +3,7 @@ import { MatTableDataSource, MatSnackBar } from '@angular/material';
 import { UserRestService } from 'src/app/providers/backend/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { findIndex } from 'lodash';
+import { FilmRestService } from 'src/app/providers/backend/film.service';
 
 @Component({
 	selector: 'app-home',
@@ -11,13 +12,13 @@ import { findIndex } from 'lodash';
 })
 export class HomeComponent implements OnInit {
 
-	todoListTable: Object[] = [];
-	dataSource = new MatTableDataSource(this.todoListTable);
-	displayedColumns: string[] = ['task', 'status', 'action'];
+	filmListTable: Object[] = [];
+	dataSource = new MatTableDataSource(this.filmListTable);
+	displayedColumns: string[] = ['title', 'director', 'year', 'actor', 'action'];
 
 	form: FormGroup;
 
-	constructor(private fb: FormBuilder, private todoRestSrv: UserRestService, private _snackBar: MatSnackBar) { }
+	constructor(private fb: FormBuilder, private filmRestSrv: FilmRestService, private _snackBar: MatSnackBar) { }
 
 	ngOnInit() {
 
@@ -25,13 +26,13 @@ export class HomeComponent implements OnInit {
 			name: ['', Validators.required]
 		});
 
-		this.getAllTasks();
+		this.getAllFilms();
 	}
 
-	getAllTasks() {
-		this.todoRestSrv.getTaskList().subscribe(d => {
-			this.todoListTable = d.data;
-			this.dataSource.data = this.todoListTable;
+	getAllFilms() {
+		this.filmRestSrv.getFilms().subscribe(d => {
+			this.filmListTable = d.data;
+			this.dataSource.data = this.filmListTable;
 		}, e => {
 			console.log(e);
 		});
@@ -43,32 +44,32 @@ export class HomeComponent implements OnInit {
 		});
 	}
 
-	markComplete(id: any) {
-		this.todoRestSrv.updateTask(id).subscribe(d => {
-			const idx = findIndex(this.todoListTable, o => o.id === d.data.id);
-			// console.log(idx);
-			// console.log(this.todoListTable);
-			this.todoListTable[idx]['status'] = 'DONE';
-			this.dataSource.data = this.todoListTable;
-		}, e => {
-			console.log(e);
-		});
-	}
+	// markComplete(id: any) {
+	// 	this.todoRestSrv.updateTask(id).subscribe(d => {
+	// 		const idx = findIndex(this.todoListTable, o => o.id === d.data.id);
+	// 		// console.log(idx);
+	// 		// console.log(this.todoListTable);
+	// 		this.todoListTable[idx]['status'] = 'DONE';
+	// 		this.dataSource.data = this.todoListTable;
+	// 	}, e => {
+	// 		console.log(e);
+	// 	});
+	// }
 
-	onSubmit() {
-		const name = this.form.get('name').value;
+	// onSubmit() {
+	// 	const name = this.form.get('name').value;
 
-		this.todoRestSrv.createTask({ name }).subscribe(d => {
-			this.todoListTable.push(d.data);
-			this.dataSource.data = this.todoListTable;
-			this._snackBar.open("Task Added Successfully", "OK", {
-				duration: 3000,
-			});
-		}, e => {
-			this._snackBar.open("Wrong Username or password", "OK", {
-				duration: 3000,
-			});
-		});
-	}
+	// 	this.todoRestSrv.createTask({ name }).subscribe(d => {
+	// 		this.todoListTable.push(d.data);
+	// 		this.dataSource.data = this.todoListTable;
+	// 		this._snackBar.open("Task Added Successfully", "OK", {
+	// 			duration: 3000,
+	// 		});
+	// 	}, e => {
+	// 		this._snackBar.open("Wrong Username or password", "OK", {
+	// 			duration: 3000,
+	// 		});
+	// 	});
+	// }
 
 }
