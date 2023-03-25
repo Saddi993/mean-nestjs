@@ -12,4 +12,9 @@ export class FilmRestService {
   getFilms() {
     return this.backend.get(`/films`);
   }
+
+  addMovie(data: any) {
+    console.log(data);
+    return this.backend.post(`/films`, data);
+  }
 }

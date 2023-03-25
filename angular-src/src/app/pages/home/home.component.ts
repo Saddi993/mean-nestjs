@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource, MatSnackBar } from '@angular/material';
-import { UserRestService } from 'src/app/providers/backend/user.service';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatTableDataSource, MatSnackBar, MatChipInputEvent } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { findIndex } from 'lodash';
 import { FilmRestService } from 'src/app/providers/backend/film.service';
+
+export interface Actor {
+	name: string;
+}
 
 @Component({
 	selector: 'app-home',
@@ -11,6 +15,13 @@ import { FilmRestService } from 'src/app/providers/backend/film.service';
 	styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+	visible = true;
+	selectable = true;
+	removable = true;
+	addOnBlur = true;
+	readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+	actors: Actor[] = [];
 
 	filmListTable: Object[] = [];
 	dataSource = new MatTableDataSource(this.filmListTable);
@@ -23,7 +34,9 @@ export class HomeComponent implements OnInit {
 	ngOnInit() {
 
 		this.form = this.fb.group({
-			name: ['', Validators.required]
+			title: ['', Validators.required],
+			director: ['', Validators.required],
+			year: ['', Validators.required]
 		});
 
 		this.getAllFilms();
@@ -38,10 +51,28 @@ export class HomeComponent implements OnInit {
 		});
 	}
 
-	create() {
-		this._snackBar.open("Task Added", "OK", {
-			duration: 3000,
-		});
+
+	add(event: MatChipInputEvent): void {
+		const input = event.input;
+		const value = event.value;
+
+		// Add our actor
+		if ((value || '').trim()) {
+			this.actors.push({ name: value.trim() });
+		}
+
+		// Reset the input value
+		if (input) {
+			input.value = '';
+		}
+	}
+
+	remove(actor: Actor): void {
+		const index = this.actors.indexOf(actor);
+
+		if (index >= 0) {
+			this.actors.splice(index, 1);
+		}
 	}
 
 	// markComplete(id: any) {
@@ -56,20 +87,25 @@ export class HomeComponent implements OnInit {
 	// 	});
 	// }
 
-	// onSubmit() {
-	// 	const name = this.form.get('name').value;
+	onSubmit() {
 
-	// 	this.todoRestSrv.createTask({ name }).subscribe(d => {
-	// 		this.todoListTable.push(d.data);
-	// 		this.dataSource.data = this.todoListTable;
-	// 		this._snackBar.open("Task Added Successfully", "OK", {
-	// 			duration: 3000,
-	// 		});
-	// 	}, e => {
-	// 		this._snackBar.open("Wrong Username or password", "OK", {
-	// 			duration: 3000,
-	// 		});
-	// 	});
-	// }
+		if (!this.form.valid) return;
+
+		const title = this.form.get('title').value;
+		const director = this.form.get('director').value;
+		const year = this.form.get('year').value;
+
+		this.filmRestSrv.addMovie({ title, director, year, actors: this.actors }).subscribe(d => {
+			this.filmListTable.push(d.data);
+			this.dataSource.data = this.filmListTable;
+			this._snackBar.open("Film Added Successfully", "OK", {
+				duration: 3000,
+			});
+		}, e => {
+			this._snackBar.open("something went wrong", "OK", {
+				duration: 3000,
+			});
+		});
+	}
 
 }
