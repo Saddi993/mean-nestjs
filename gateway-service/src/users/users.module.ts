@@ -10,6 +10,8 @@ import { UsersController } from './users.controller';
 import { UserService } from './users.service';
 import { FilmsController } from 'src/films/films.controller';
 import { FilmService } from 'src/films/films.service';
+import { UserCommand } from './user.command';
+import { FilmCommand } from 'src/films/films.command';
 
 @Module({
   imports: [
@@ -40,6 +42,6 @@ import { FilmService } from 'src/films/films.service';
     ])
   ],
   controllers: [UsersController, FilmsController],
-  providers: [UserService, FilmService],
+  providers: [UserCommand, FilmCommand, UserService, FilmService],
 })
 export class UsersModule { }

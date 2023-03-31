@@ -1,14 +1,15 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { CommandModule } from 'nestjs-command';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { FilmsModule } from './films/films.module';
 import { logRequest } from './middleware/logger';
 import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
-    UsersModule
+    UsersModule,
+    CommandModule
   ],
   controllers: [AppController],
   providers: [AppService],

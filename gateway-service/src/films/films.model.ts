@@ -4,6 +4,6 @@ export class Film {
       public title: string,
       public director: string,
       public year: number,
-      public actors: [],
+      public actors: string[],
     ) {}
   }
